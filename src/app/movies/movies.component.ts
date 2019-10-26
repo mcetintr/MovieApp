@@ -14,7 +14,7 @@ import { MovieService } from '../movie.service';
     ]
 })
 export class MoviesComponent {
-    title = 'Movie List';
+    title = 'Film Listesi';
     movies: Movie[];
     selectedMovie: Movie;
 
@@ -35,6 +35,24 @@ export class MoviesComponent {
                 // subscribe özelliği veri gelene kadar bekletir.
                 this.movies = movies;
             });
+    }
+
+    add(name: string, imageUrl: string, description): void {
+        console.log(name);
+        console.log(imageUrl);
+        console.log(description);
+
+        this.movieService.add({
+            name,
+            imageUrl,
+            description
+        } as Movie).subscribe(movie => this.movies.push(movie));
+
+    }
+
+    delete(movie:Movie) : void {
+        this.movieService.delete(movie).subscribe();
+        this.movies = this.movies.filter(m => m !== movie);
     }
 
 }

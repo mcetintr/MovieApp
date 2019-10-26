@@ -1,15 +1,38 @@
-<movie-detail [movie] = "selectedMovie"></movie-detail>
-
-<div class="card">
+<div class="card my-2">
     <div class="card-header">
         <h2>{{ title }}</h2>
     </div>
     <ul class="list-group list-group-flush">
-        <li *ngFor="let movie of movies" (click)="onSelect(movie);" class="list-group-item"
-            [class.active]="movie === selectedMovie">
+        <li *ngFor="let movie of movies" class="list-group-item" [routerLink]="['/detail', movie.id]"
+            routerLinkActive="router-link-active">
             <span class="badge badge-primary">{{movie.id}}</span> {{movie.name}}
-            <span class="close">x</span>
+            <span (click)="delete(movie)" class="close">x</span>
         </li>
 
     </ul>
+</div>
+<div class="card my-2">
+    <div class="card-header">
+        Film Ekle
+    </div>
+    <div class="card-body">
+
+        <div class="form-group">
+            <label for="name">Film İsmi</label>
+            <input #name type="text" class="form-control" >
+        </div>
+
+        <div class="form-group">
+            <label for="imageUrl">Resim Adresi</label>
+            <input #imageUrl type="text" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Açıklama</label>
+            <textarea #description class="form-control"></textarea>
+        </div>
+
+        <button class="btn btn-primary btn-sm" (click)="add(name.value, imageUrl.value, description.value);name.value='';imageUrl.value='';description.value='';">Kaydet</button>
+
+    </div>
 </div>
